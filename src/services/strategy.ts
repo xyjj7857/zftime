@@ -2825,7 +2825,7 @@ export class StrategyEngine {
 
     for (let i = accountResults.length - 1; i >= 0; i--) {
       const r = accountResults[i];
-      const logMsg = `${r.symbol}: Buy=${r.buyRatio}%, AMP=${r.amp}%, M=${r.m}M. ${r.isPass ? '通过' + (r.isPreferred ? ' (优选)' : '') : '未通过: ' + r.reason}`;
+      const logMsg = `${r.symbol}: Close=${r.buyRatio}%, AMP=${r.amp}%, M=${r.m}M. ${r.isPass ? '通过' + (r.isPreferred ? ' (优选)' : '') : '未通过: ' + r.reason}`;
       this.addLog('扫描', logMsg, r.isPass ? 'success' : 'info');
     }
 

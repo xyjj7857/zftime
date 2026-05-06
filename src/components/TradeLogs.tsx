@@ -90,7 +90,7 @@ export default function TradeLogs({ tradeLogs, onClear, accountId }: { tradeLogs
       log.side === 'BUY' ? '做多' : '做空',
       log.leverage + 'x',
       log.amount,
-      log.kBestAmp !== undefined ? log.kBestAmp.toFixed(2) + '%' : '--',
+      log.amp !== undefined ? log.amp.toFixed(2) + '%' : '--',
       log.mValue !== undefined ? log.mValue.toFixed(2) : '--',
       log.realA ? log.realA.toFixed(2) + '%' : '--',
       log.entryPrice,
@@ -247,7 +247,7 @@ export default function TradeLogs({ tradeLogs, onClear, accountId }: { tradeLogs
                       </span>
                     </td>
                     <td className="py-5 font-mono text-xs font-bold text-slate-500 whitespace-nowrap">
-                      {log.kBestAmp !== undefined ? log.kBestAmp.toFixed(2) + '%' : '--'}
+                      {log.amp !== undefined ? log.amp.toFixed(2) + '%' : '--'}
                     </td>
                     <td className="py-5 font-mono text-xs font-bold text-slate-500 whitespace-nowrap">
                       {log.mValue !== undefined ? log.mValue.toFixed(2) : '--'}

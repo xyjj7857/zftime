@@ -2950,7 +2950,7 @@ export class StrategyEngine {
         fundingFeeCheckedCount: 0,
         profitRate: 0,
         kBestChange: 0,
-        kBestAmp: parseFloat(coin.amp || '0'),
+        amp: parseFloat(coin.amp),
         mValue: parseFloat(coin.m),
         openTime: Date.now(),
         closeTime: 0,
@@ -3083,7 +3083,7 @@ export class StrategyEngine {
       const entryPrice = executionData?.avgPrice || (this.currentPosition ? this.currentPosition.entryPrice : kBestClose);
       // 根据用户要求，直接使用计算结果，不取绝对值
       const kBestChange = (kBestClose - kBestOpen) / kBestOpen;
-      const kBestAmp = kBestHigh > 0 ? (1 - kBestLow / kBestHigh) * 100 : 0;
+      const amp = kBestHigh > 0 ? (1 - kBestLow / kBestHigh) * 100 : 0;
       
       // 真实A = (最高值 - k优收) / k优收 * 100
       const realA = ((kBestHigh - kBestClose) / kBestClose) * 100;
@@ -3091,7 +3091,7 @@ export class StrategyEngine {
       // 更新交易日志中的 K 优涨跌幅、M值（交易额，单位：100万）和真实A
       this.updateTradeLog(orderId, { 
         kBestChange,
-        kBestAmp,
+        amp,
         mValue: parseFloat((kBestQuoteVolume / 1000000).toFixed(2)),
         realA 
       });
@@ -3154,7 +3154,7 @@ export class StrategyEngine {
         ? (Math.ceil((safeSL - epsilon) / tickSize) * tickSize).toFixed(pricePrecision)
         : (Math.floor((safeSL + epsilon) / tickSize) * tickSize).toFixed(pricePrecision);
 
-      this.addLog('下单', `[最高] 获取k优开计算完成: ${symbol} [${targetStartStr} - ${targetEndStr}] - 入场价: ${entryPrice}, K优开: ${kBestOpen}, K优收: ${kBestClose}, K优高: ${kBestHigh}, K优低: ${kBestLow}, TP: ${formattedTP}, SL: ${formattedSL} (K优振幅: ${kBestAmp.toFixed(2)}%)`, 'success');
+      this.addLog('下单', `[最高] 获取k优开计算完成: ${symbol} [${targetStartStr} - ${targetEndStr}] - 入场价: ${entryPrice}, K优开: ${kBestOpen}, K优收: ${kBestClose}, K优高: ${kBestHigh}, K优低: ${kBestLow}, TP: ${formattedTP}, SL: ${formattedSL} (K优振幅: ${amp.toFixed(2)}%)`, 'success');
 
       // 确保正向单已成交并建立持仓
       let posEstablished = false;

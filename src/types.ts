@@ -134,7 +134,7 @@ export interface TradeLog {
   fundingFeeCheckedCount?: number; // 新增：记录资金费查询次数
   profitRate: number;
   kBestChange?: number; // 新增：K优涨跌幅
-  kBestAmp?: number; // 新增：K优振幅
+  amp?: number; // 新增：振幅
   mValue?: number; // 新增：M值
   realA?: number; // 新增：真实A
   openTime: number;

@@ -42,7 +42,7 @@ export class DatabaseService {
           fundingFeeCheckedCount INTEGER DEFAULT 0,
           profitRate REAL NOT NULL,
           kBestChange REAL,
-          kBestAmp REAL,
+          amp REAL,
           mValue REAL,
           realA REAL,
           openTime INTEGER NOT NULL,
@@ -147,9 +147,9 @@ export class DatabaseService {
         console.log('Migrating database: Adding kBestChange column');
         this.db.exec(`ALTER TABLE trade_logs ADD COLUMN kBestChange REAL DEFAULT 0`);
       }
-      if (!tradeLogColumns.includes('kBestAmp')) {
-        console.log('Migrating database: Adding kBestAmp column');
-        this.db.exec(`ALTER TABLE trade_logs ADD COLUMN kBestAmp REAL DEFAULT 0`);
+      if (!tradeLogColumns.includes('amp')) {
+        console.log('Migrating database: Adding amp column');
+        this.db.exec(`ALTER TABLE trade_logs ADD COLUMN amp REAL DEFAULT 0`);
       }
       if (!tradeLogColumns.includes('mValue')) {
         console.log('Migrating database: Adding mValue column');
@@ -198,14 +198,14 @@ export class DatabaseService {
     try {
       const stmt = this.db.prepare(`
         INSERT OR REPLACE INTO trade_logs (
-          id, accountId, symbol, side, leverage, amount, entryPrice, exitPrice, pnl, fee, fundingFee, fundingFeeCheckedCount, profitRate, kBestChange, kBestAmp, mValue, realA, openTime, closeTime, status
+          id, accountId, symbol, side, leverage, amount, entryPrice, exitPrice, pnl, fee, fundingFee, fundingFeeCheckedCount, profitRate, kBestChange, amp, mValue, realA, openTime, closeTime, status
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
       stmt.run(
         log.id, accountId, log.symbol, log.side, log.leverage, log.amount, log.entryPrice, 
         log.exitPrice, log.pnl, log.fee, log.fundingFee, log.fundingFeeCheckedCount || 0, log.profitRate, 
-        log.kBestChange || 0, log.kBestAmp || 0, log.mValue || 0, log.realA || 0,
+        log.kBestChange || 0, log.amp || 0, log.mValue || 0, log.realA || 0,
         log.openTime, log.closeTime, log.status
       );
     } catch (error) {

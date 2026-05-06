@@ -2950,6 +2950,7 @@ export class StrategyEngine {
         fundingFeeCheckedCount: 0,
         profitRate: 0,
         kBestChange: 0,
+        kBestAmp: parseFloat(coin.amp || '0'),
         mValue: parseFloat(coin.m),
         openTime: Date.now(),
         closeTime: 0,
